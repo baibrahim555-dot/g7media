@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>G7 Media | Photographe : mariage, baptême, portrait, événement, studio</title>
+  <meta name="description" content="G7 Media, photographe généraliste : mariage, baptême et famille, portrait, événement et studio. Demandez votre séance.">
+  <link rel="icon" href="assets/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link id="ft" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;600&display=swap">
+  <style>
+    :root{--bg:#0A1530;--s:#111F42;--ac:#E5232E;--bl:#4DA3F2;--tx:#F2F4F8;--mu:#A9B4CC;--ft:'Playfair Display',Georgia,serif}
+    *{box-sizing:border-box;margin:0}html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--tx);font:400 1rem/1.65 Inter,system-ui,sans-serif;padding-bottom:env(safe-area-inset-bottom)}
+    a{color:inherit}:focus-visible{outline:3px solid var(--bl);outline-offset:3px}
+    h1,h2,h3{font-family:var(--ft);line-height:1.12}h2{font-size:clamp(1.8rem,4vw,2.6rem);margin-bottom:1.4rem}
+    section{padding:5rem max(1.2rem,5vw)}.wrap{max-width:1180px;margin:auto}
+    .btn{display:inline-block;background:var(--ac);color:#fff;border:0;border-radius:999px;padding:.85rem 1.6rem;font:600 1rem Inter,sans-serif;text-decoration:none;cursor:pointer}
+    .btn:hover{filter:brightness(1.12)}.btn.o{background:transparent;border:2px solid var(--tx)}.btn:disabled{opacity:.6}
+    
+    /* Bouton Espace Client dans le menu haut */
+    .btn-client{background:var(--ac);color:#fff !important;padding:.45rem 1.1rem;border-radius:999px;font-weight:600;font-size:.9rem;text-decoration:none;display:inline-block;transition:filter .2s ease}
+    .btn-client:hover{filter:brightness(1.15)}
+
+    #bn{background:var(--ac);text-align:center;padding:.5rem 1rem;font-weight:600}
+    header{position:fixed;inset:0 0 auto;z-index:20;display:flex;align-items:center;gap:1rem;padding:.7rem max(1.2rem,5vw);padding-top:calc(.7rem + env(safe-area-inset-top));background:linear-gradient(var(--bg),#0a153000)}
+    .logo{height:46px;background:#fff;border-radius:10px;padding:3px}header nav{margin-left:auto;display:flex;gap:1.4rem;align-items:center}
+    header nav a{text-decoration:none;color:var(--mu)}header nav a:hover{color:var(--tx)}
+    #lg{background:none;border:1px solid var(--mu);color:var(--tx);border-radius:8px;padding:.3rem .6rem;cursor:pointer}
+    .hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;padding:0 max(1.2rem,5vw) 9vh;overflow:hidden;background:radial-gradient(120% 90% at 80% 10%,#1b3a78,var(--bg) 60%)}
+    .sl{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.4s}.sl.on{opacity:1}
+    .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,var(--bg) 4%,#0a153099 45%,#0a153044)}
+    .arc{position:absolute;right:-4%;top:12%;width:min(780px,92vw);z-index:1;fill:none;stroke:var(--ac);stroke-width:5;stroke-linecap:round;stroke-dasharray:1100;stroke-dashoffset:1100;animation:dr 2.4s .3s ease-out forwards}
+    @keyframes dr{to{stroke-dashoffset:0}}
+    .hero .in{position:relative;z-index:2;max-width:760px}.hero h1{font-size:clamp(2.4rem,7vw,5rem);margin-bottom:1rem}.hero p{color:var(--mu);font-size:1.15rem;margin-bottom:1.8rem}.hero .btn{margin-right:.6rem}
+
+    /* Section "Que souhaitez-vous immortaliser ?" */
+    .grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:minmax(190px,24vw);gap:14px}
+    .cd{position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding:1.2rem;border-radius:18px;overflow:hidden;text-decoration:none;background:var(--s) center/cover}
+    .cd:first-child{grid-column:span 2;grid-row:span 2}.cd::before{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#0a1530ee,#0a153000 65%)}
+    .cd>*{position:relative}.cd h3{font-size:1.5rem}.cd small{color:var(--mu)}.cd:first-child h3{font-size:2.3rem}.cd:hover{outline:2px solid var(--ac)}
+
+    /* Section Galerie */
+    .alt{background:var(--s)}.mas{columns:3 260px;gap:12px}
+    .mas img{width:100%;height:auto;max-height:480px;object-fit:cover;object-position:center;margin-bottom:12px;border-radius:10px;cursor:zoom-in;display:block}
+
+    .pr{display:grid;gap:0}.pr div{display:flex;justify-content:space-between;gap:1rem;padding:1.1rem 0;border-bottom:1px solid #ffffff22}.pr b{font-family:var(--ft);font-size:1.25rem}.pr span{color:var(--mu)}.pr em{font-style:normal;color:var(--tx);white-space:nowrap}
+    .tm{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}.tm blockquote{background:var(--bg);padding:1.4rem;border-radius:16px;border-left:4px solid var(--ac)}.tm cite{display:block;margin-top:.8rem;color:var(--mu);font-style:normal}
+    form{display:grid;gap:.9rem;max-width:620px}input,select,textarea{width:100%;background:var(--s);color:var(--tx);border:1px solid #ffffff33;border-radius:10px;padding:.8rem;font:inherit}
+    .hp{position:absolute;left:-9999px}#fm{min-height:1.5em;color:var(--mu)}
+    #vue{display:none;padding-top:7rem}#vue .back{color:var(--mu);display:inline-block;margin-bottom:1rem}
+
+    /* Style du Footer professionnel */
+    .ft-pro{background:#060e22;border-top:1px solid rgba(255,255,255,0.1);padding:4rem max(1.2rem,5vw) 1.5rem !important}
+    .ft-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2.5rem;margin-bottom:3rem}
+    .ft-col a:hover{color:var(--ac) !important;transition:color .2s ease}
+    .ft-btm{border-top:1px solid rgba(255,255,255,0.08);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+
+    .wa{position:fixed;right:max(1rem,env(safe-area-inset-right));bottom:max(1rem,env(safe-area-inset-bottom));z-index:30;box-shadow:0 6px 24px #0008}
+    #lb{position:fixed;inset:0;z-index:50;background:#050b1af2;display:flex;align-items:center;justify-content:center}#lb[hidden]{display:none}#lb img{max-width:92vw;max-height:88vh;object-fit:contain;border-radius:8px}
+    #lb button{position:absolute;background:#0008;color:#fff;border:0;font-size:2rem;width:3rem;height:3rem;border-radius:50%;cursor:pointer}
+    @media(max-width:760px){header nav a{display:none}.grid{grid-template-columns:1fr 1fr;grid-auto-rows:minmax(150px,42vw)}.cd:first-child{grid-column:span 2;grid-row:span 1}section{padding:3.5rem 1.2rem}}
+    @media(prefers-reduced-motion:reduce){.arc{animation:none;stroke-dashoffset:0}.sl{transition:none}html{scroll-behavior:auto}}
+  </style>
+</head>
+<body>
+<div id="bn" hidden></div>
+<header>
+  <a href="#"><img class="logo" src="assets/logo.png" alt="G7 Media"></a>
+  <nav id="nv">
+    <a href="#seances">Séances</a>
+    <a href="#galerie">Galerie</a>
+    <a href="#tarifs">Tarifs</a>
+    <a href="#contact">Contact</a>
+    <a href="client.html" class="btn-client">Mon Espace Client</a>
+  </nav>
+</header>
+<main>
+<div class="hero" id="top"><div id="sls"></div><svg class="arc" viewBox="0 0 800 400" aria-hidden="true"><path d="M10 340C230 400 590 320 790 40"/></svg>
+<div class="in"><h1 id="h1"></h1><p id="hp"></p><a class="btn" href="#contact" id="hc"></a></div></div>
+<section id="seances"><div class="wrap"><h2 id="q"></h2><div class="grid" id="cards"></div></div></section>
+<section id="vue"><div class="wrap"></div></section>
+<section id="galerie" class="alt"><div class="wrap"><h2 id="tg"></h2><div class="mas" id="mas"></div></div></section>
+<section id="tarifs"><div class="wrap"><h2 id="tp"></h2><div class="pr" id="pr"></div></div></section>
+<section id="avis" class="alt"><div class="wrap"><h2 id="ta"></h2><div class="tm" id="tm"></div></div></section>
+<section id="apropos"><div class="wrap"><h2 id="tb"></h2><p id="ab" style="max-width:62ch;color:var(--mu)"></p></div></section>
+<section id="contact" class="alt"><div class="wrap"><h2 id="tc"></h2>
+<div id="ct" style="display:flex;gap:.8rem;flex-wrap:wrap"></div></div></section>
+</main>
+
+<footer class="ft-pro">
+  <div class="wrap ft-grid">
+    <div class="ft-col">
+      <img class="logo" src="assets/logo.png" alt="G7 Media" style="margin-bottom: 1rem;">
+      <p style="color: var(--mu); font-size: 0.95rem; line-height: 1.6; max-width: 300px;">
+        G7 Media, studio photo & vidéo professionnel. Immortalisez vos plus beaux moments : mariages, portraits, baptêmes et événements.
+      </p>
+    </div>
+    <div class="ft-col">
+      <h4 style="font-family: var(--ft); font-size: 1.1rem; color: #fff; margin-bottom: 1rem;">Navigation</h4>
+      <ul style="list-style: none; padding: 0; display: grid; gap: 0.6rem; color: var(--mu); font-size: 0.95rem;">
+        <li><a href="#top" style="text-decoration: none;">Accueil</a></li>
+        <li><a href="#seances" style="text-decoration: none;">Séances</a></li>
+        <li><a href="#galerie" style="text-decoration: none;">Galerie</a></li>
+        <li><a href="#tarifs" style="text-decoration: none;">Tarifs</a></li>
+        <li><a href="#contact" style="text-decoration: none;">Contact</a></li>
+      </ul>
+    </div>
+    <div class="ft-col">
+      <h4 style="font-family: var(--ft); font-size: 1.1rem; color: #fff; margin-bottom: 1rem;">Contact</h4>
+      <p style="color: var(--mu); font-size: 0.95rem; line-height: 1.8;">
+        📍 Dakar, Sénégal<br>
+        📞 <a href="tel:+221761820406" style="color: var(--tx); text-decoration: none;">+221 76 182 04 06</a><br>
+        ✉️ <a href="mailto:g7mediasen@gmail.com" style="color: var(--tx); text-decoration: none;">g7mediasen@gmail.com</a>
+      </p>
+
+      <!-- Lien vers l'Espace Administrateur directement sous l'e-mail -->
+      <a href="admin.html" id="ad" style="
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 10px;
+        color: var(--mu);
+        font-size: 0.85rem;
+        text-decoration: none;
+        opacity: 0.85;
+        transition: opacity 0.2s ease, color 0.2s ease;
+      " onmouseover="this.style.opacity='1';this.style.color='#4DA3F2'" onmouseout="this.style.opacity='0.85';this.style.color='var(--mu)'">
+        🔒 Accès Admin
+      </a>
+    </div>
+  </div>
+  <div class="wrap ft-btm">
+    <span id="cp" style="color: var(--mu); font-size: 0.85rem;"></span>
+    <span id="so" style="display:none;"></span>
+  </div>
+</footer>
+
+<a class="btn wa" id="wa" href="#" target="_blank" rel="noopener">WhatsApp</a>
+<div id="lb" hidden role="dialog" aria-modal="true"><button id="lx" style="top:1rem;right:1rem" aria-label="Fermer">×</button><button id="lp" style="left:1rem" aria-label="Précédent">‹</button><img id="li" alt=""><button id="ln" style="right:1rem" aria-label="Suivant">›</button></div>
+<noscript><p style="padding:1rem">Activez JavaScript, ou écrivez-nous sur WhatsApp : +221 76 182 04 06.</p></noscript>
+<script src="config.js"></script>
+<script src="js/public.js"></script></body></html>

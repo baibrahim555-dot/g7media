@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Espace Client | G7 Media</title>
+  <link rel="icon" href="assets/logo.png">
+  <style>
+    :root{--bg:#0A1530;--s:#111F42;--ac:#E5232E;--tx:#F2F4F8;--mu:#A9B4CC;--bd:#ffffff33}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{background:var(--bg);color:var(--tx);font:400 1rem/1.6 Inter,system-ui,sans-serif;padding:1.2rem;max-width:760px;margin:auto}
+    h1,h2,h3{font-family:Georgia,serif;margin:1rem 0 .5rem}
+    a{color:var(--mu);text-decoration:underline}
+    .help-text{font-size:.85rem;color:var(--mu);margin-top:-.4rem;margin-bottom:.8rem;display:block}
+    input,select,textarea{width:100%;background:var(--s);color:var(--tx);border:1px solid var(--bd);border-radius:10px;padding:.75rem;font:inherit;margin:.2rem 0 .4rem}
+    button{background:var(--ac);color:#fff;border:0;border-radius:999px;padding:.8rem 1.5rem;font-weight:600;font-size:1rem;cursor:pointer;transition:opacity .2s}
+    button:disabled{opacity:.5;cursor:not-allowed}
+    button.g{background:var(--s);border:1px solid #ffffff44;color:var(--tx)}
+    button.sm{padding:.4rem 1rem;font-size:.9rem}
+    .c{background:var(--s);border-radius:14px;padding:1.2rem;margin-bottom:1rem;border:1px solid #ffffff10}
+    label{color:var(--tx);font-size:.95rem;font-weight:500}
+    .ck{display:flex;gap:.6rem;align-items:flex-start;color:var(--tx);margin:.8rem 0}.ck input{width:auto;margin-top:.35rem}
+    #m{min-height:1.5em;margin:.6rem 0;font-weight:500}
+    .logo{height:46px;background:#fff;border-radius:10px;padding:3px}
+    header{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem}
+    header a:last-child{margin-left:auto}
+    
+    /* Navigation par onglets */
+    .tabs{display:flex;gap:.5rem;margin-bottom:1.2rem;overflow-x:auto;padding-bottom:.4rem}
+    .tab-btn{background:var(--s);color:var(--mu);border:1px solid var(--bd);padding:.6rem 1rem;border-radius:10px;font-size:.9rem;white-space:nowrap;cursor:pointer}
+    .tab-btn.active{background:var(--ac);color:#fff;border-color:var(--ac)}
+    .tab-content{display:none}.tab-content.active{display:block}
+
+    .gg{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.6rem;margin-top:.6rem}.gg img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:8px}
+    #cm{max-height:300px;overflow-y:auto;padding:.5rem;background:#060d1e;border-radius:10px;margin-bottom:1rem}
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="index.html"><img class="logo" src="assets/logo.png" alt="G7 Media"></a>
+  <a href="index.html">‹ Retour au site</a>
+</header>
+
+<div id="m" role="status"></div>
+
+<!-- SECTION AUTHENTIFICATION -->
+<div id="au" class="c">
+  <h2>Espace Client G7 Media</h2>
+  <p class="help-text" style="margin-bottom:1rem">Accédez à votre espace pour gérer vos réservations, vos messages et vos galeries photos.</p>
+
+  <!-- Choix de la méthode : S'inscrire vs Se connecter -->
+  <div style="display:flex;gap:.5rem;margin-bottom:1rem">
+    <button id="btn-m-otp" class="tab-btn active">S'inscrire</button>
+    <button id="btn-m-pwd" class="tab-btn">Se connecter</button>
+  </div>
+
+  <!-- Formulaire d'inscription (Premier accès via Code OTP) -->
+  <div id="f-otp">
+    <label for="em">Votre adresse e-mail</label>
+    <input id="em" type="email" placeholder="exemple@domaine.com" autocomplete="email">
+    <span class="help-text">Un code de vérification à 6 chiffres vous sera envoyé par e-mail pour valider votre inscription.</span>
+    <button id="sc">Recevoir mon code</button>
+
+    <div id="s2" hidden style="margin-top:1.2rem;border-top:1px dashed var(--bd);padding-top:1rem">
+      <label for="cd">Code à 6 chiffres reçu par e-mail</label>
+      <input id="cd" inputmode="numeric" placeholder="123456" maxlength="10">
+      <span class="help-text">Vérifiez votre boîte de réception et vos spams.</span>
+      <button id="vc">Valider mon inscription</button>
+      <p style="margin-top:.8rem"><a id="hp2" href="#" target="_blank" rel="noopener">Je ne reçois pas mon code : m'aider sur WhatsApp</a></p>
+    </div>
+  </div>
+
+  <!-- Formulaire de connexion (Clients déjà inscrits) -->
+  <div id="f-pwd" hidden>
+    <label for="em-p">Votre adresse e-mail</label>
+    <input id="em-p" type="email" placeholder="exemple@domaine.com">
+    <label for="pw-p">Votre mot de passe</label>
+    <input id="pw-p" type="password" placeholder="••••••••">
+    <span class="help-text">Saisissez le mot de passe créé lors de votre inscription.</span>
+    <button id="lp">Se connecter</button>
+  </div>
+</div>
+
+<!-- SECTION ESPACE CLIENT APRES CONNEXION -->
+<div id="ap" hidden>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
+    <p>Connecté en tant que : <b id="who"></b></p>
+    <button class="g sm" id="out">Se déconnecter</button>
+  </div>
+
+  <!-- Fenêtre de création du mot de passe permanent après premier OTP -->
+  <div id="pwd-setup-box" class="c" style="background:#132752;border:1px solid #4DA3F2" hidden>
+    <h3>🔒 Définissez votre mot de passe</h3>
+    <p class="help-text" style="color:#e0e8ff">Créez votre mot de passe pour pouvoir vous connecter directement la prochaine fois sans attendre de code par e-mail.</p>
+    <label for="new-pw">Nouveau mot de passe</label>
+    <input id="new-pw" type="password" placeholder="Au moins 6 caractères">
+    <button id="save-pw" class="sm">Enregistrer mon mot de passe</button>
+  </div>
+
+  <!-- Onglets de Navigation -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('t-book')">📅 Réserver une séance</button>
+    <button class="tab-btn" onclick="switchTab('t-msg')">💬 Demandes & Messages</button>
+    <button class="tab-btn" onclick="switchTab('t-gal')">🖼️ Galeries & Boutique</button>
+    <button class="tab-btn" onclick="switchTab('t-acc')">👤 Mon Compte</button>
+  </div>
+
+  <!-- TAB 1 : RESERVATION -->
+  <div id="t-book" class="tab-content active">
+    <h2>Nouvelle demande de réservation</h2>
+    <form id="f" class="c">
+      <label for="nm">Votre nom complet</label>
+      <input id="nm" name="name" required minlength="2" placeholder="Nom et Prénom">
+      <span class="help-text">Permet d'établir vos factures et devis.</span>
+
+      <label for="ph">Téléphone / WhatsApp</label>
+      <input id="ph" name="phone" type="tel" placeholder="+221 XX XXX XX XX">
+      <span class="help-text">Indispensable pour vous contacter rapidement en cas de besoin.</span>
+
+      <label for="ca">Type de prestation</label>
+      <select id="ca" name="category" required></select>
+      <span class="help-text">Sélectionnez le type de séance photo ou vidéo souhaité.</span>
+
+      <label for="dt">Date souhaitée</label>
+      <input id="dt" name="date" type="date">
+      <span class="help-text">Indiquez la date idéale pour votre projet.</span>
+
+      <label for="sl">Moment de la journée</label>
+      <select id="sl" name="slot">
+        <option value="journée">Journée entière</option>
+        <option value="matin">Matin (8h - 12h)</option>
+        <option value="après-midi">Après-midi (14h - 18h)</option>
+        <option value="soirée">Soirée / Événement nocturne</option>
+      </select>
+
+      <label for="pl">Lieu exact du shooting</label>
+      <input id="pl" name="place" placeholder="Ex: Studio G7 Media, Domicile, Plage des Almadies...">
+      <span class="help-text">Précisez la ville ou le lieu envisagé pour la séance.</span>
+
+      <div id="zw" hidden>
+        <label for="zn">Zone de déplacement</label>
+        <select id="zn" name="zone"></select>
+        <p id="zf" style="color:var(--mu);font-size:.85rem;margin-bottom:.5rem"></p>
+      </div>
+
+      <label for="ms">Détails de votre demande</label>
+      <textarea id="ms" name="message" rows="3" placeholder="Décrivez votre projet, le nombre de personnes, le style recherché..."></textarea>
+      <span class="help-text">Donnez-nous le maximum de précisions pour adapter notre offre.</span>
+
+      <label for="pf">Photo d'inspiration (facultatif)</label>
+      <input id="pf" type="file" accept="image/*">
+      <span class="help-text">Vous pouvez joindre une image d'exemple pour nous montrer le style souhaité.</span>
+
+      <label class="ck">
+        <input type="checkbox" name="consent" required> 
+        J'accepte que G7 Media conserve ces informations pour traiter ma demande.
+      </label>
+
+      <button id="sb" style="width:100%;margin-top:.8rem">Envoyer ma demande de réservation</button>
+    </form>
+  </div>
+
+  <!-- TAB 2 : MESSAGES & DEMANDES -->
+  <div id="t-msg" class="tab-content">
+    <h2>Mes demandes en cours</h2>
+    <div id="ls"></div>
+
+    <h2>Discussion avec G7 Media</h2>
+    <div class="c">
+      <div id="cm"></div>
+      <form id="cs">
+        <label for="ci">Écrire un message</label>
+        <textarea id="ci" rows="2" placeholder="Posez une question sur votre séance ou votre devis..."></textarea>
+        <button class="sm" style="margin-top:.4rem">Envoyer le message</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- TAB 3 : GALERIES & SHOP -->
+  <div id="t-gal" class="tab-content">
+    <h2>Mes galeries livrées</h2>
+    <div id="gl"></div>
+
+    <h2>Boutique de tirages</h2>
+    <div id="sh"></div>
+    <div id="cart" class="c" hidden>
+      <b>Mon panier</b>
+      <div id="cl"></div>
+      <label for="ad2">Adresse de livraison</label>
+      <textarea id="ad2" rows="2" placeholder="Quartier, rue, consignes..."></textarea>
+      <button id="co" class="sm">Valider la commande</button>
+    </div>
+    <div id="pay" class="c" hidden></div>
+
+    <h2>Mes commandes de tirages</h2>
+    <div id="od"></div>
+  </div>
+
+  <!-- TAB 4 : COMPTE -->
+  <div id="t-acc" class="tab-content">
+    <h2>Mes données personnelles</h2>
+    <div class="c">
+      <p class="help-text" style="margin-bottom:1rem">Conformément à notre politique de confidentialité, vous pouvez exporter ou demander la suppression de vos données à tout moment.</p>
+      <button class="g sm" id="dx">Télécharger mes données</button>
+      <button class="g sm" id="dd" style="border-color:#ff6b6b;color:#ff8888">Demander la suppression du compte</button>
+    </div>
+  </div>
+</div>
+
+<script src="config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script>
+const C=window.G7||{},$=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const sb=window.supabase.createClient(C.url,C.key),msg=(t,e)=>{$('#m').textContent=t||'';$('#m').style.color=e?'#ffb4b4':'#9fd2ff'},EM=/^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+let U=null,K=[],Z=[];const rest=p=>fetch(`${C.url}/rest/v1/${p}`,{headers:{apikey:C.key,Authorization:'Bearer '+C.key}}).then(r=>r.json());
+const SL={nouveau:'Reçue',devis:'Devis envoyé',acompte_attendu:'Acompte attendu',confirme:'Confirmée',termine:'Terminée',annule:'Annulée'},money=n=>Number(n).toLocaleString('fr-FR')+' FCFA';
+
+// Gestion des modes d'authentification (S'inscrire vs Se connecter)
+$('#btn-m-otp').onclick=()=>{ $('#f-otp').hidden=false; $('#f-pwd').hidden=true; $('#btn-m-otp').classList.add('active'); $('#btn-m-pwd').classList.remove('active'); };
+$('#btn-m-pwd').onclick=()=>{ $('#f-otp').hidden=true; $('#f-pwd').hidden=false; $('#btn-m-pwd').classList.add('active'); $('#btn-m-otp').classList.remove('active'); };
+
+// Switcher d'onglets
+function switchTab(id){
+  document.querySelectorAll('.tab-content').forEach(d=>d.classList.remove('active'));
+  document.querySelectorAll('.tabs .tab-btn').forEach(b=>b.classList.remove('active'));
+  $('#'+id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// 1. Authentification par OTP (Inscription)
+$('#sc').onclick=async e=>{
+  const em=$('#em').value.trim();if(!EM.test(em))return msg('Adresse e-mail invalide.',1);e.target.disabled=true;msg('Envoi du code...');
+  const{error}=await sb.auth.signInWithOtp({email:em,options:{shouldCreateUser:true}});e.target.disabled=false;
+  if(error)return msg('Envoi impossible. Réessayez ou écrivez-nous sur WhatsApp.',1);
+  $('#s2').hidden=false;$('#hp2').href='https://wa.me/'+(C.wa||'')+'?text='+encodeURIComponent('Bonjour, je ne reçois pas mon code d\'inscription. Mon e-mail : '+em);
+  msg('Code envoyé ! Consultez votre boîte e-mail.');
+};
+
+$('#vc').onclick=async()=>{
+  const em=$('#em').value.trim(),token=$('#cd').value.trim();let err=null;
+  for(const type of['email','magiclink','signup']){
+    const{error}=await sb.auth.verifyOtp({email:em,token,type});
+    if(!error){err=null;break}err=error;
+  }
+  if(err)return msg('Code incorrect ou expiré.',1);
+  msg('');
+};
+
+// 2. Authentification par Mot de passe (Connexion)
+$('#lp').onclick=async()=>{
+  const em=$('#em-p').value.trim(),pw=$('#pw-p').value;
+  if(!EM.test(em)||!pw)return msg('Renseignez votre e-mail et mot de passe.',1);
+  msg('Connexion...');
+  const{error}=await sb.auth.signInWithPassword({email:em,password:pw});
+  if(error)msg('Adresse e-mail ou mot de passe incorrect.',1);else msg('');
+};
+
+// 3. Définition du mot de passe permanent
+$('#save-pw').onclick=async()=>{
+  const pw=$('#new-pw').value;
+  if(!pw||pw.length<6)return msg('Le mot de passe doit contenir au moins 6 caractères.',1);
+  const{error}=await sb.auth.updateUser({password:pw});
+  if(error)msg('Erreur lors de la sauvegarde du mot de passe.',1);
+  else{ msg('Mot de passe enregistré avec succès !'); $('#pwd-setup-box').hidden=true; }
+};
+
+$('#out').onclick=()=>sb.auth.signOut();
+
+async function draw(){
+  $('#au').hidden=!!U;$('#ap').hidden=!U;
+  if(!U)return;
+  $('#who').textContent=U.email;
+
+  if(!U.user_metadata?.has_password){
+    $('#pwd-setup-box').hidden=false;
+  }
+
+  if(!K.length){
+    K=await rest('categories?active=eq.true&order=position&select=slug,name_fr');
+    Z=await rest('travel_fees?select=*&order=zone');
+    $('#ca').innerHTML=K.map(c=>`<option value="${esc(c.slug)}">${esc(c.name_fr)}</option>`).join('');
+    if(Z.length){
+      $('#zw').hidden=false;
+      $('#zn').innerHTML='<option value="">Sélectionnez votre zone</option>'+Z.map(z=>`<option>${esc(z.zone)}</option>`).join('');
+    }
+  }
+  $('#dt').min=new Date().toISOString().slice(0,10);
+  const{data:cl}=await sb.from('clients').select('name,phone').eq('id',U.id).maybeSingle();
+  if(cl){if(cl.name&&!$('#nm').value)$('#nm').value=cl.name;if(cl.phone&&!$('#ph').value)$('#ph').value=cl.phone}
+  list();chat();gals();shop();orders();
+}
+
+async function list(){
+  const{data}=await sb.from('reservations').select('*').order('created_at',{ascending:false});
+  $('#ls').innerHTML=(data||[]).map(r=>`<div class="c"><b>${esc(K.find(c=>c.slug==r.category)?.name_fr||r.category||'')}</b> · Date : ${esc(r.event_date||'À définir')}<br>Statut : <b>${esc(SL[r.status]||r.status)}</b>${r.quote?`<br>Devis : ${money(r.quote)}`:''}</div>`).join('')||'<p class="help-text">Aucune demande enregistrée.</p>';
+}
+
+async function busy(day,slot){if(!day)return false;const A=await rest(`availability?day=eq.${day}&select=slot,status`);return A.some(a=>a.status!='libre'&&(slot=='journée'||a.slot=='journée'||a.slot==slot))}
+async function shrink(file){const b=await createImageBitmap(file,{imageOrientation:'from-image'}),k=Math.min(1,1600/Math.max(b.width,b.height)),c=document.createElement('canvas');c.width=Math.round(b.width*k);c.height=Math.round(b.height*k);c.getContext('2d').drawImage(b,0,0,c.width,c.height);return new Promise((ok,ko)=>c.toBlob(x=>x?ok(x):ko(),'image/webp',.82))}
+
+$('#zn').onchange=e=>{const z=Z.find(x=>x.zone==e.target.value);$('#zf').textContent=z?`Frais de déplacement estimés : ${money(z.fee)}`:''};
+
+$('#f').onsubmit=async e=>{
+  e.preventDefault();const d=Object.fromEntries(new FormData(e.target)),b=$('#sb');b.disabled=true;msg('Envoi de votre réservation...');
+  try{
+    if(await busy(d.date,d.slot)){msg('Cette date est déjà réservée. Veuillez choisir un autre créneau.',1);return}
+    let path=null;const f=$('#pf').files[0];
+    if(f){try{const bl=await shrink(f);path=`${U.id}/${crypto.randomUUID()}.webp`;await sb.storage.from('uploads').upload(path,bl,{contentType:'image/webp'})}catch(x){}}
+    await sb.from('clients').update({name:d.name.trim(),phone:d.phone||null}).eq('id',U.id);
+    const{error}=await sb.from('reservations').insert({client_id:U.id,category:d.category,event_date:d.date||null,slot:d.slot,place:((d.zone?d.zone+' : ':'')+(d.place||'')).trim()||null,message:d.message||null,client_photo_path:path,consent:true,status:'nouveau'});
+    if(error)throw error;
+    e.target.reset();$('#nm').value=d.name;msg('Réservation envoyée avec succès !');list();
+  }catch(x){msg('Erreur lors de l\'envoi. Réessayez.',1)}finally{b.disabled=false}
+};
+
+let CH=null;
+const bub=m=>`<p style="text-align:${m.sender=='client'?'right':'left'}"><span style="display:inline-block;background:${m.sender=='client'?'#1b3a78':'#0A1530'};border-radius:12px;padding:.5rem .8rem;max-width:85%">${esc(m.body)}</span><br><small style="color:var(--mu)">${new Date(m.created_at).toLocaleString('fr-FR')}</small></p>`;
+async function chatLoad(){const{data}=await sb.from('messages').select('*').order('created_at').limit(200);$('#cm').innerHTML=(data||[]).map(bub).join('')||'<p class="help-text">Aucun message. Écrivez-nous ci-dessous.</p>';$('#cm').scrollTop=1e6}
+async function chat(){await chatLoad();if(CH)sb.removeChannel(CH);CH=sb.channel('m'+U.id).on('postgres_changes',{event:'INSERT',schema:'public',table:'messages',filter:`client_id=eq.${U.id}`},chatLoad).subscribe()}
+
+$('#cs').onsubmit=async e=>{
+  e.preventDefault();const b=$('#ci').value.trim();if(!b)return;
+  const{error}=await sb.from('messages').insert({client_id:U.id,sender:'client',body:b});
+  if(error)return msg('Message non envoyé.',1);
+  $('#ci').value='';chatLoad();
+};
+
+async function gals(){
+  const{data:G}=await sb.from('galleries').select('*').order('created_at',{ascending:false}),box=$('#gl');
+  if(!G?.length){box.innerHTML='<p class="help-text">Aucune galerie disponible.</p>';return}
+  box.innerHTML=G.map(g=>`<div class="c"><b>${esc(g.title)}</b><div class="gg" id="g_${g.id}"></div></div>`).join('');
+  for(const g of G){
+    const{data:I}=await sb.from('gallery_items').select('*').eq('gallery_id',g.id).order('position'),P=(I||[]).map(i=>i.thumb_path||i.path),{data:S}=P.length?await sb.storage.from('galleries').createSignedUrls(P,3600):{data:[]};
+    $('#g_'+g.id).innerHTML=(I||[]).map((i,k)=>`<figure><img loading="lazy" src="${esc(S?.[k]?.signedUrl||'')}"><button class="g sm" data-dl="${esc(i.path)}" data-ok="${g.downloadable?1:0}">${g.downloadable?'Télécharger':'Voir'}</button></figure>`).join('');
+  }
+}
+
+$('#gl').onclick=async e=>{
+  const d=e.target.dataset;
+  if(d.dl){const{data}=await sb.storage.from('galleries').createSignedUrl(d.dl,300,d.ok=='1'?{download:true}:undefined);if(data?.signedUrl)location.href=data.signedUrl;}
+};
+
+let CART=[],WV={};
+async function shopFn(action,data){const{data:{session}}=await sb.auth.getSession();const r=await fetch(`${C.url}/functions/v1/shop`,{method:'POST',headers:{'Content-Type':'application/json',apikey:C.key,Authorization:'Bearer '+(session?.access_token||'')},body:JSON.stringify({action,data})}),j=await r.json().catch(()=>({}));if(!r.ok)throw Error(j.error||'Erreur serveur.');return j}
+async function shop(){const[P,S]=await Promise.all([rest('products?active=eq.true&order=position&select=*,product_variants(*),photos(path,thumb_path)'),rest('site_settings?key=eq.site&select=value')]);WV=S[0]?.value||{};$('#sh').innerHTML=(Array.isArray(P)?P:[]).map(p=>{const vs=(p.product_variants||[]).filter(v=>v.active&&(v.stock==null||v.stock>0));if(!vs.length)return'';return`<div class="c" data-p="${p.id}"><b>${esc(p.name)}</b><p class="help-text">${esc(p.description||'')}</p><select>${vs.map(v=>`<option value="${v.id}" data-l="${esc(v.label)}" data-pr="${v.price}">${esc(v.label)} ·${money(v.price)}</option>`).join('')}</select><button class="g sm" data-add>Ajouter au panier</button></div>`}).join('')||'<p class="help-text">La boutique est vide pour le moment.</p>'}
+
+function cartDraw(){const t=CART.reduce((s,l)=>s+l.price*l.qty,0);$('#cart').hidden=!CART.length;$('#cl').innerHTML=CART.map((l,i)=>`<p>${esc(l.name)} × ${l.qty} = ${money(l.price*l.qty)} <button class="g sm" data-rm="${i}">Retirer</button></p>`).join('')+`<p><b>Total : ${money(t)}</b></p>`}
+$('#sh').onclick=e=>{if(e.target.dataset.add==null)return;const c=e.target.closest('[data-p]'),o=c.querySelector('select').selectedOptions[0],id=+o.value,x=CART.find(l=>l.id==id);if(x)x.qty++;else CART.push({id,name:c.querySelector('b').textContent,label:o.dataset.l,price:+o.dataset.pr,qty:1});cartDraw()};
+$('#cl').onclick=e=>{if(e.target.dataset.rm!=null){CART.splice(+e.target.dataset.rm,1);cartDraw()}};
+$('#co').onclick=async e=>{e.target.disabled=true;try{const r=await shopFn('order_create',{items:CART.map(l=>({variant_id:l.id,qty:l.qty})),address:$('#ad2').value});CART=[];cartDraw();payPanel(r.order_id,r.total);orders();msg('Commande créée. Veuillez effectuer le paiement.')}catch(x){msg(x.message,1)}finally{e.target.disabled=false}};
+
+function payPanel(id,total){const box=$('#pay'),n=WV.wave;box.hidden=false;box.innerHTML=`<b>Commande n°${id} : ${money(total)}</b><p class="help-text">Payez par Wave au <b>${esc(n||'')}</b> puis envoyez la capture ci-dessous.</p><input id="pf2" type="file" accept="image/*"><button id="ps" class="sm">Envoyer ma preuve</button>`;
+  $('#ps').onclick=async()=>{const f=$('#pf2').files[0];if(!f)return msg('Sélectionnez la capture d\'écran.',1);$('#ps').disabled=true;try{const bl=await shrink(f),path=`${U.id}/${crypto.randomUUID()}.webp`;await sb.storage.from('uploads').upload(path,bl,{contentType:'image/webp'});await shopFn('order_proof',{order_id:id,path,ref:''});box.hidden=true;msg('Preuve transmise avec succès !');orders()}catch(x){msg('Erreur lors de l\'envoi.',1)}finally{$('#ps').disabled=false}}
+}
+
+async function orders(){const{data}=await sb.from('orders').select('*,payments(status,amount,wave_ref)').order('created_at',{ascending:false});$('#od').innerHTML=(data||[]).map(o=>`<div class="c"><b>Commande n°${o.id}</b> · Total : ${money(o.total)}</div>`).join('')||'<p class="help-text">Aucune commande enregistrée.</p>'}
+
+$('#dx').onclick=async()=>{const o={exporte_le:new Date().toISOString()};for(const t of['clients','reservations','messages','orders','payments','consents','annotations','galleries']){const{data}=await sb.from(t).select('*');o[t]=(data||[]).map(r=>{const c={...r};delete c.raw;return c})}const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(o,null,2)],{type:'application/json'}));a.download='donnees-g7media.json';a.click()};
+$('#dd').onclick=async()=>{if(!confirm('Demander la suppression de toutes vos données ?'))return;const{error}=await sb.from('gdpr_requests').insert({client_id:U.id,email:U.email,kind:'suppression'});msg(error?'Erreur lors de la demande.':'Demande transmise à G7 Media.',!!error)};
+
+sb.auth.onAuthStateChange((_e,s)=>{U=s?.user||null;draw()});
+sb.auth.getSession().then(({data})=>{U=data.session?.user||null;draw()});
+</script>
+</body>
+</html>
