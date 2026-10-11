@@ -6,30 +6,30 @@
 
   const L = {
     fr: {
-      d_mariage: 'Du oui a la derniere danse, sans rien manquer.',
-      d_bapteme: 'Les premieres fois et les grandes reunions de famille.',
-      d_portrait: 'Un regard, une presence, votre image.',
-      d_evenement: 'Conferences, anniversaires, ceremonies : tout le deroule.',
-      d_studio: 'Lumiere maitrisee pour portraits, produits et books.',
-      nav: ['Seances', 'Tarifs', 'Avis', 'A propos', 'Contact'],
-      cta: 'Reserver une seance',
+      d_mariage: 'Du oui à la dernière danse, sans rien manquer.',
+      d_bapteme: 'Les premières fois et les grandes réunions de famille.',
+      d_portrait: 'Un regard, une présence, votre image.',
+      d_evenement: 'Conférences, anniversaires, cérémonies : tout le déroulé.',
+      d_studio: 'Lumière maîtrisée pour portraits, produits et books.',
+      nav: ['Séances', 'Tarifs', 'Avis', 'À propos', 'Contact'],
+      cta: 'Réserver une séance',
       q: 'Que souhaitez-vous immortaliser ?',
-      from: 'A partir de',
+      from: 'À partir de',
       req: 'Tarif sur demande',
       gal: 'Galerie',
       pr: 'Tarifs',
       av: 'Ils nous ont fait confiance',
-      ab: 'A propos',
+      ab: 'À propos',
       ct: 'Parlons de votre projet',
       back: 'Retour',
-      adm: 'Acces admin',
-      book: 'Reserver cette seance',
+      adm: 'Accès admin',
+      book: 'Réserver cette séance',
       slogan: 'Je photographie les moments qui comptent.',
-      ab0: 'Photographe generaliste, je couvre vos mariages, baptemes, portraits, evenements et seances studio avec le meme soin du detail.',
-      wa: 'Ecrire sur WhatsApp',
-      mail: 'Ecrire par e-mail',
-      msg: 'Bonjour, je souhaite une seance ',
-      off: 'Contenu momentanement indisponible. Ecrivez-nous sur WhatsApp.'
+      ab0: 'Photographe généraliste, je couvre vos mariages, baptêmes, portraits, événements et séances studio avec le même soin du détail.',
+      wa: 'Écrire sur WhatsApp',
+      mail: 'Écrire par e-mail',
+      msg: 'Bonjour, je souhaite une séance ',
+      off: 'Contenu momentanément indisponible. Écrivez-nous sur WhatsApp.'
     },
     en: {
       d_mariage: 'From the vows to the last dance, nothing missed.',
@@ -92,7 +92,7 @@
     $('#bn').hidden = !(bn || off);
     $('#bn').textContent = off ? x.off : bn;
 
-    const nav = MN.length ? MN.map(function (m) { return '<a href="' + esc(safe(m.href) || '#') + '">' + esc(tr(m, 'label')) + '</a>'; }).join('') : ['seances', 'tarifs', 'avis', 'apropos', 'contact'].map(function (h, i) { return '<a href="#' + h + '">' + x.nav[i] + '</a>'; }).join('');
+    const nav = MN.length ? MN.map(function (m) { return '<a href="' + esc(safe(m.href) || '#') + '">' + esc(tr(m, 'label')) + '</a>'; }).join('') : [['seances', x.nav[0]], ['galerie', x.gal], ['tarifs', x.nav[1]], ['contact', x.nav[4]]].map(function (e) { return '<a href="#' + e[0] + '">' + e[1] + '</a>'; }).join('');
     const btnClient = '<a href="client.html" class="btn-client" style="background:var(--ac);color:#fff!important;padding:.4rem 1.1rem;border-radius:999px;font-weight:600;font-size:.9rem;text-decoration:none;display:inline-block;margin-left:.4rem;">' + (lg === 'fr' ? 'Mon Espace Client' : 'Client Area') + '</a>';
 
     $('#nv').innerHTML = nav + btnClient + '<button id="lg" aria-label="Langue">' + (lg === 'fr' ? 'EN' : 'FR') + '</button>';
@@ -139,11 +139,10 @@
     }).join('');
 
     $('#ab').textContent = S.about || x.ab0;
-    $('#ct').innerHTML = '<a class="btn" href="client.html">' + (lg === 'fr' ? 'Reserver en ligne' : 'Book online') + '</a><a class="btn o" href="https://wa.me/' + wa() + '" target="_blank" rel="noopener">' + x.wa + '</a>' + (S.email ? '<a class="btn o" href="mailto:' + esc(S.email) + '">' + x.mail + '</a>' : '');
+    $('#ct').innerHTML = '<a class="btn" href="client.html">' + (lg === 'fr' ? 'Réserver en ligne' : 'Book online') + '</a><a class="btn o" href="https://wa.me/' + wa() + '" target="_blank" rel="noopener">' + x.wa + '</a>' + (S.email ? '<a class="btn o" href="mailto:' + esc(S.email) + '">' + x.mail + '</a>' : '');
     $('#wa').href = 'https://wa.me/' + wa();
     $('#cp').textContent = '© ' + new Date().getFullYear() + ' ' + nm();
 
-    if ($('#ad')) { $('#ad').textContent = x.adm; }
 
     $('#so').innerHTML = (S.instagram && /^https:\/\//.test(S.instagram) ? '<a href="' + esc(S.instagram) + '" rel="noopener" style="margin:0">Instagram</a> ' : '') + (S.email ? '<a href="mailto:' + esc(S.email) + '" style="margin:0">' + esc(S.email) + '</a>' : '');
     document.querySelectorAll('[data-bg]').forEach(function (e) {
